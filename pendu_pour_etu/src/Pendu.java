@@ -10,18 +10,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.control.Tooltip;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar.ButtonData ;
-import javafx.scene.control.ButtonType ;
+import javafx.scene.control.ButtonBar.ButtonData;
+
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
-
 
 /**
  * Vue du jeu du pendu
@@ -37,7 +32,7 @@ public class Pendu extends Application {
     private ArrayList<Image> lesImages;
     /**
      * Liste qui contient les noms des niveaux
-     */    
+     */
     public List<String> niveaux;
 
     // les différents contrôles qui seront mis à jour ou consultés pour l'affichage
@@ -75,15 +70,16 @@ public class Pendu extends Application {
     private Button boutonParametres;
     /**
      * le bouton Accueil / Maison
-     */    
+     */
     private Button boutonMaison;
     /**
      * le bouton qui permet de (lancer ou relancer une partie
-     */ 
+     */
     private Button bJouer;
 
     /**
-     * initialise les attributs (créer le modèle, charge les images, crée le chrono ...)
+     * initialise les attributs (créer le modèle, charge les images, crée le chrono
+     * ...)
      */
     @Override
     public void init() {
@@ -94,123 +90,178 @@ public class Pendu extends Application {
     }
 
     /**
-     * @return  le graphe de scène de la vue à partir de methodes précédantes
+     * @return le graphe de scène de la vue à partir de methodes précédantes
      */
-    private Scene laScene(){
+    private Scene laScene() {
         BorderPane fenetre = new BorderPane();
         fenetre.setTop(this.titre());
-        fenetre.setCenter(this.panelCentral);
+        fenetre.setCenter(this.modeAccueil());
         return new Scene(fenetre, 800, 1000);
     }
 
     /**
      * @return le panel contenant le titre du jeu
      */
-    private Pane titre(){
-        // A implementer          
-        Pane banniere = new Pane();
-        return banniere;
+    private Pane titre() {
+
+        Stage stage = new Stage();
+        stage.setTitle("IUTEAM's - La plateforme de jeux de l'IUTO");
+
+        BorderPane bp = new BorderPane();
+
+        Label l1 = new Label("Jeu du pendu");
+        bp.setLeft(l1);
+
+        HBox hb = new HBox();
+
+        Button home = new Button();
+        ImageView image1 = new ImageView("file:pendu_pour_etu/img/home.png");
+        home.setOnAction(null);
+        home.setGraphic(image1);
+        image1.setFitHeight(40);
+        image1.setFitWidth(40);
+
+        Button param = new Button();
+        ImageView image2 = new ImageView("file:pendu_pour_etu/img/parametres.png");
+        image2.setFitHeight(40);
+        image2.setFitWidth(40);
+
+        param.setOnAction(null);
+        param.setGraphic(image2);
+
+        Button info = new Button();
+        ImageView image3 = new ImageView("file:pendu_pour_etu/img/info.png");
+        info.setOnAction(null);
+        info.setGraphic(image3);
+        image3.setFitHeight(40);
+        image3.setFitWidth(40);
+
+        hb.getChildren().addAll(home, param, info);
+        bp.setRight(hb);
+        bp.setBackground(new Background(new BackgroundFill(Color.CYAN, null, null)));
+        return bp;
     }
 
     // /**
-     // * @return le panel du chronomètre
-     // */
+    // * @return le panel du chronomètre
+    // */
     // private TitledPane leChrono(){
-        // A implementer
-        // TitledPane res = new TitledPane();
-        // return res;
+    // A implementer
+    // TitledPane res = new TitledPane();
+    // return res;
     // }
 
     // /**
-     // * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
-     // *         de progression et le clavier
-     // */
+    // * @return la fenêtre de jeu avec le mot crypté, l'image, la barre
+    // * de progression et le clavier
+    // */
     // private Pane fenetreJeu(){
-        // A implementer
-        // Pane res = new Pane();
-        // return res;
+    // A implementer
+    // Pane res = new Pane();
+    // return res;
     // }
 
     // /**
-     // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de jeu
-     // */
+    // * @return la fenêtre d'accueil sur laquelle on peut choisir les paramètres de
+    // jeu
+    // */
     // private Pane fenetreAccueil(){
-        // A implementer    
-        // Pane res = new Pane();
-        // return res;
+    // A implementer
+    // Pane res = new Pane();
+    // return res;
     // }
 
     /**
      * charge les images à afficher en fonction des erreurs
+     * 
      * @param repertoire répertoire où se trouvent les images
      */
-    private void chargerImages(String repertoire){
-        for (int i=0; i<this.modelePendu.getNbErreursMax()+1; i++){
-            File file = new File(repertoire+"/pendu"+i+".png");
+    private void chargerImages(String repertoire) {
+        for (int i = 0; i < this.modelePendu.getNbErreursMax() + 1; i++) {
+            File file = new File(repertoire + "/pendu" + i + ".png");
             System.out.println(file.toURI().toString());
             this.lesImages.add(new Image(file.toURI().toString()));
         }
     }
 
-    public void modeAccueil(){
+    public BorderPane modeAccueil() {
+        this.panelCentral= new BorderPane();
+        VBox vbox = new VBox();
+        Button b1 = new Button("Lancer une partie");
+        //b1.setOnAction(new ControleurLancerPartie(modelePendu,));
+        vbox.getChildren().add(b1);
+        
+        VBox vb = new VBox();
+        RadioButton rd = new RadioButton("FACILE");
+        RadioButton rd2 = new RadioButton("MOYEN");
+        RadioButton rd3 = new RadioButton("DIFFICILE");
+        RadioButton rd4 = new RadioButton("EXPERT");
+        vb.getChildren().addAll(rd, rd2, rd3, rd4);
+
+        TitledPane tpane = new TitledPane("niveau de difficulté", vb);
+        vbox.getChildren().add(tpane);
+        this.panelCentral.setCenter(vbox);
+        return this.panelCentral;
+    }
+
+    public void modeJeu() {
         // A implementer
     }
-    
-    public void modeJeu(){
-        // A implementer
-    }
-    
-    public void modeParametres(){
+
+    public void modeParametres() {
         // A implémenter
     }
 
     /** lance une partie */
-    public void lancePartie(){
+    public void lancePartie() {
         // A implementer
     }
 
     /**
      * raffraichit l'affichage selon les données du modèle
      */
-    public void majAffichage(){
+    public void majAffichage() {
         // A implementer
     }
 
     /**
      * accesseur du chronomètre (pour les controleur du jeu)
+     * 
      * @return le chronomètre du jeu
      */
-    public Chronometre getChrono(){
+    public Chronometre getChrono() {
         // A implémenter
         return null; // A enlever
     }
 
-    public Alert popUpPartieEnCours(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
+    public Alert popUpPartieEnCours() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "La partie est en cours!\n Etes-vous sûr de l'interrompre ?", ButtonType.YES, ButtonType.NO);
         alert.setTitle("Attention");
         return alert;
     }
-        
-    public Alert popUpReglesDuJeu(){
+
+    public Alert popUpReglesDuJeu() {
         // A implementer
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         return alert;
     }
-    
-    public Alert popUpMessageGagne(){
+
+    public Alert popUpMessageGagne() {
         // A implementer
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         return alert;
     }
-    
-    public Alert popUpMessagePerdu(){
-        // A implementer    
+
+    public Alert popUpMessagePerdu() {
+        // A implementer
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         return alert;
     }
 
     /**
      * créer le graphe de scène et lance le jeu
+     * 
      * @param stage la fenêtre principale
      */
     @Override
@@ -223,9 +274,10 @@ public class Pendu extends Application {
 
     /**
      * Programme principal
+     * 
      * @param args inutilisé
      */
     public static void main(String[] args) {
         launch(args);
-    }    
+    }
 }
