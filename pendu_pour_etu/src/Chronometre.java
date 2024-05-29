@@ -43,14 +43,14 @@ public class Chronometre extends Text{
      * @param tempsMillisec la durée depuis à afficher
      */
     public void setTime(long tempsMillisec){
-        // A implémenter
+        this.setText(Long.toString(tempsMillisec));
     }
 
     /**
      * Permet de démarrer le chronomètre
      */
     public void start(){
-        // A implémenter
+        ControleurChronometre();
     }
 
     /**
@@ -64,6 +64,6 @@ public class Chronometre extends Text{
      * Permet de remettre le chronomètre à 0
      */
     public void resetTime(){
-        // A implémenter
+
     }
 }

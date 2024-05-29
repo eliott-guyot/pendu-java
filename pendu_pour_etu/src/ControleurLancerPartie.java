@@ -21,7 +21,8 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
      * @param p vue du jeu
      */
     public ControleurLancerPartie(MotMystere modelePendu, Pendu vuePendu) {
-        // A implémenter
+        this.vuePendu=vuePendu;
+        this.modelePendu=modelePendu;
     }
 
     /**
@@ -35,7 +36,7 @@ public class ControleurLancerPartie implements EventHandler<ActionEvent> {
         Optional<ButtonType> reponse = this.vuePendu.popUpPartieEnCours().showAndWait(); // on lance la fenêtre popup et on attends la réponse
         // si la réponse est oui
         if (reponse.isPresent() && reponse.get().equals(ButtonType.YES)){
-            System.out.println("Ok !");
+            vuePendu.lancePartie();
         }
         else{
             System.out.println("D'ac !");

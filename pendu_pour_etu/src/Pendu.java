@@ -14,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
@@ -188,7 +189,7 @@ public class Pendu extends Application {
         this.panelCentral= new BorderPane();
         VBox vbox = new VBox();
         Button b1 = new Button("Lancer une partie");
-        //b1.setOnAction(new ControleurLancerPartie(modelePendu,));
+        b1.setOnAction(new ControleurLancerPartie(modelePendu,this));
         vbox.getChildren().add(b1);
         
         VBox vb = new VBox();
@@ -205,7 +206,23 @@ public class Pendu extends Application {
     }
 
     public void modeJeu() {
-        // A implementer
+        this.panelCentral = new BorderPane();
+        
+        this.clavier =new Clavier("abcdefghijklmnopqrstuvwxyz", new ControleurLettres(modelePendu,this));
+        this.pg= new ProgressBar(modelePendu.getMotATrouve().length());
+        this.dessin= new ImageView("file:pendu_pour_etu/img/pendu0.png");
+        Label motcrypt= new Label(modelePendu.getMotCrypte());
+        VBox vb1 = new VBox();
+        vb1.getChildren().add(motcrypt);
+        vb1.getChildren().addAll(dessin,pg,clavier);
+        this.panelCentral.setLeft(vb1);
+        VBox vb2 = new VBox();
+        this.leNiveau
+        this.chrono
+        this.bJouer
+
+        vb2.getChildren().addAll(leNiveau,chrono,bJouer);
+        this.panelCentral.setRight(vb2);
     }
 
     public void modeParametres() {
@@ -214,14 +231,26 @@ public class Pendu extends Application {
 
     /** lance une partie */
     public void lancePartie() {
-        // A implementer
+        modeJeu();
     }
 
     /**
      * raffraichit l'affichage selon les données du modèle
      */
     public void majAffichage() {
-        // A implementer
+        String lettre="";
+        String motmyst="";
+        for (String mot : modelePendu.getLettresEssayees()){
+            if (modelePendu.getMotATrouve().contains(mot)){
+                lettre=mot;
+            }
+        }
+        for (char let:modelePendu.getMotATrouve().toCharArray()){
+            if (lettre.equals(lettre)){
+                motmyst+=lettre;
+            }
+            else{motmyst+="*";}
+        }
     }
 
     /**
