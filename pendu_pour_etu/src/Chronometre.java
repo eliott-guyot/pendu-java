@@ -64,6 +64,6 @@ public class Chronometre extends Text{
      * Permet de remettre le chronomètre à 0
      */
     public void resetTime(){
-
+        reset();
     }
 }
