@@ -25,7 +25,7 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
      * @param chrono Vue du chronomètre
      */
     public ControleurChronometre (Chronometre chrono){
-        this.chrono=chono;
+        this.chrono=chrono;
         
     }
 
@@ -37,7 +37,7 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-         Long val= Long.sum(this.tempsPrec,this.tempsEcoule));
+         Long val= Long.sum(this.tempsPrec,this.tempsEcoule);
          this.tempsPrec=val;
     }
 
@@ -46,6 +46,6 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
      */
     public void reset(){
         this.tempsEcoule = new Long("0");
-        this.tempsPrec = new tempsPrec("0");
+        this.tempsPrec = new Long("0");
     }
 }
