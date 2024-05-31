@@ -12,12 +12,13 @@ public class ControleurNiveau implements EventHandler<ActionEvent> {
      */
     private MotMystere modelePendu;
 
-
+    private Pendu vPendu;
     /**
      * @param modelePendu modèle du jeu
      */
-    public ControleurNiveau(MotMystere modelePendu) {
-        // A implémenter
+    public ControleurNiveau(MotMystere modelePendu, Pendu vPendu) {
+        this.modelePendu=modelePendu;
+        this.vPendu=vPendu;
     }
 
     /**
@@ -30,5 +31,10 @@ public class ControleurNiveau implements EventHandler<ActionEvent> {
         RadioButton radiobouton = (RadioButton) actionEvent.getTarget();
         String nomDuRadiobouton = radiobouton.getText();
         System.out.println(nomDuRadiobouton);
+        for (int k=0;k<vPendu.niveaux.size();++k){
+            if (vPendu.niveaux.get(k).equals(nomDuRadiobouton)){
+                this.modelePendu.setNiveau(k);
+            }
+        }
     }
 }
