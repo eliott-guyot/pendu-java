@@ -241,18 +241,15 @@ public class Pendu extends Application {
      * raffraichit l'affichage selon les données du modèle
      */
     public void majAffichage() {
-        String lettre="";
-        String motmyst="";
-        for (String mot : modelePendu.getLettresEssayees()){
-            if (modelePendu.getMotATrouve().contains(mot)){
-                lettre=mot;
-            }
+        this.motCrypte.setText(this.modelePendu.getMotCrypte());
+        this.dessin.setImage(this.lesImages.get(this.modelePendu.getNbErreursMax()-this.modelePendu.getNbErreursRestants()));
+        double avancé = Double.valueOf(this.modelePendu.getNbErreursMax()-this.modelePendu.getNbErreursRestants())/Double.valueOf(this.modelePendu.getNbErreursMax());
+        this.pg.setProgress(avancé);
+        if (this.modelePendu.perdu()){
+            this.popUpMessagePerdu().showAndWait();
         }
-        for (char let:modelePendu.getMotATrouve().toCharArray()){
-            if (lettre.equals(lettre)){
-                motmyst+=lettre;
-            }
-            else{motmyst+="*";}
+        else if (this.modelePendu.gagne()){ 
+            this.popUpMessageGagne().showAndWait();
         }
     }
 
@@ -262,8 +259,7 @@ public class Pendu extends Application {
      * @return le chronomètre du jeu
      */
     public Chronometre getChrono() {
-        // A implémenter
-        return null; // A enlever
+        return chrono;
     }
 
     public Alert popUpPartieEnCours() {
