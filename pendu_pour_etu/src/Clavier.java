@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle ;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +32,7 @@ public class Clavier extends TilePane{
         this.setVgap(15);
         for (int k=0;k<characteres.length;++k){
             char carac = characteres[k];
-            Button bouton = new Button(Character.toString(carac).toUpperCase());
+            Button bouton = new Button(Character.toString(carac).toLowerCase());
             bouton.setOnAction(actionTouches);
             this.getChildren().add(bouton);
             this.clavier.add(bouton);
@@ -43,13 +44,19 @@ public class Clavier extends TilePane{
      * @param touchesDesactivees une chaine de caractères contenant la liste des touches désactivées
      */
     public void desactiveTouches(Set<String> touchesDesactivees){
-        for (Button b1:clavier){
-            if (touchesDesactivees.contains(b1.getText())){
-                b1.setDisable(true);
+        Set<Character>  touche= new HashSet<>();
+        for (char letter: touchesDesactivees.toCharArray()){
+            touche.add(letter);
+        }
+
+        for (Button btn: clavier){
+            if(touche.contains(btn.getText().toCharArray()[0])){
+                btn.setDisable(true);
             }
             else{
-                b1.setDisable(false);
+                btn.setDisable(false);
             }
         }
+        
     }
 }
