@@ -86,6 +86,8 @@ public class Pendu extends Application {
     public void init() {
         this.modelePendu = new MotMystere("/usr/share/dict/french", 3, 10, MotMystere.FACILE, 10);
         this.lesImages = new ArrayList<Image>();
+        this.panelCentral= new BorderPane();
+        this.clavier =new Clavier("abcdefghijklmnopqrstuvwxyz", new ControleurLettres(modelePendu,this));
         this.chargerImages("./img");
         // A terminer d'implementer
     }
@@ -96,7 +98,7 @@ public class Pendu extends Application {
     private Scene laScene() {
         BorderPane fenetre = new BorderPane();
         fenetre.setTop(this.titre());
-        fenetre.setCenter(this.modeAccueil());
+        fenetre.setCenter(this.panelCentral);
         return new Scene(fenetre, 800, 1000);
     }
 
@@ -172,7 +174,8 @@ public class Pendu extends Application {
     // return res;
     // }
 
-    /**
+    /**        this.panelCentral= new BorderPane();
+
      * charge les images à afficher en fonction des erreurs
      * 
      * @param repertoire répertoire où se trouvent les images
@@ -185,8 +188,7 @@ public class Pendu extends Application {
         }
     }
 
-    public BorderPane modeAccueil() {
-        this.panelCentral= new BorderPane();
+    public void modeAccueil() {
         VBox vbox = new VBox();
         Button b1 = new Button("Lancer une partie");
         b1.setOnAction(new ControleurLancerPartie(modelePendu,this));
@@ -202,27 +204,28 @@ public class Pendu extends Application {
         TitledPane tpane = new TitledPane("niveau de difficulté", vb);
         vbox.getChildren().add(tpane);
         this.panelCentral.setCenter(vbox);
-        return this.panelCentral;
     }
 
-    public void modeJeu() {
-        this.panelCentral = new BorderPane();
+    public void modeJeu() {        
+        HBox hbox= new HBox();
         
-        this.clavier =new Clavier("abcdefghijklmnopqrstuvwxyz", new ControleurLettres(modelePendu,this));
         this.pg= new ProgressBar(modelePendu.getMotATrouve().length());
         this.dessin= new ImageView("file:pendu_pour_etu/img/pendu0.png");
         Label motcrypt= new Label(modelePendu.getMotCrypte());
         VBox vb1 = new VBox();
         vb1.getChildren().add(motcrypt);
-        vb1.getChildren().addAll(dessin,pg,clavier);
-        this.panelCentral.setLeft(vb1);
-        VBox vb2 = new VBox();
-        this.leNiveau
-        this.chrono
-        this.bJouer
+        vb1.getChildren().addAll(this.dessin,this.pg,this.clavier);
+        hbox.getChildren().add(vb1);
 
-        vb2.getChildren().addAll(leNiveau,chrono,bJouer);
-        this.panelCentral.setRight(vb2);
+        VBox vb2 = new VBox();
+        this.leNiveau = new Text("niveau : ");
+        this.chrono = new Chronometre();
+        this.bJouer = new Button("nouveau mot");
+
+        vb2.getChildren().addAll(this.leNiveau,this.chrono,this.bJouer);
+        hbox.getChildren().add(vb2);
+        this.panelCentral.setCenter(hbox);
+
     }
 
     public void modeParametres() {
