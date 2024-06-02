@@ -44,6 +44,9 @@ public class ControleurChronometre implements EventHandler<ActionEvent> {
         tempsPrec=temps;
         chrono.setTime(tempsEcoule);
     }
+    public void start(){
+        tempsPrec= System.currentTimeMillis();
+    }
 
     /**
      * Remet la durée à 0

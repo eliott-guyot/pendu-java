@@ -4,7 +4,13 @@
     // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "Pendu",
+            "request": "launch",
+            "mainClass": "Pendu",
+            "projectName": "tp4-ihm-eliott_27908fda"
+        },
         {
             "type": "java",
             "name": "Current File",
@@ -16,7 +22,7 @@
             "type": "java",
             "name": "Pendu",
             "request": "launch",
-            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "-classpath classes --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "Pendu",
             "projectName": "tp4_d8e9647b"
         }

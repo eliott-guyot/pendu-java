@@ -27,10 +27,9 @@ public class ControleurNiveau implements EventHandler<ActionEvent> {
      */
     @Override
     public void handle(ActionEvent actionEvent) {
-        // A implémenter
+        
         RadioButton radiobouton = (RadioButton) actionEvent.getTarget();
         String nomDuRadiobouton = radiobouton.getText();
-        System.out.println(nomDuRadiobouton);
         for (int k=0;k<vPendu.niveaux.size();++k){
             if (vPendu.niveaux.get(k).equals(nomDuRadiobouton)){
                 this.modelePendu.setNiveau(k);

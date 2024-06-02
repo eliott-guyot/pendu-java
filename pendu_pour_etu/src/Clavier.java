@@ -32,7 +32,7 @@ public class Clavier extends TilePane{
         this.setVgap(15);
         for (int k=0;k<characteres.length;++k){
             char carac = characteres[k];
-            Button bouton = new Button(Character.toString(carac).toLowerCase());
+            Button bouton = new Button(Character.toString(carac));
             bouton.setOnAction(actionTouches);
             this.getChildren().add(bouton);
             this.clavier.add(bouton);
@@ -43,7 +43,7 @@ public class Clavier extends TilePane{
      * permet de désactiver certaines touches du clavier (et active les autres)
      * @param touchesDesactivees une chaine de caractères contenant la liste des touches désactivées
      */
-    public void desactiveTouches(Set<String> touchesDesactivees){
+    public void desactiveTouches(String touchesDesactivees){
         Set<Character>  touche= new HashSet<>();
         for (char letter: touchesDesactivees.toCharArray()){
             touche.add(letter);

@@ -53,7 +53,7 @@ public class MotMystere {
      */
     private Dictionnaire dict;
 
-
+    private Clavier clavier;
     /**
      * constructeur dans lequel on impose le mot à trouver
      * @param motATrouve mot à trouver
@@ -219,6 +219,9 @@ public class MotMystere {
         return this.nbLettresRestantes == 0;
     }
 
+    public void defClavier(Clavier clav){
+        this.clavier=clav;
+    }
     /**
      * permet au joueur d'essayer une lettre
      * @param lettre la lettre essayée par le joueur
