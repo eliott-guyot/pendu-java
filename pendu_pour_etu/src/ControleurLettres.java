@@ -40,9 +40,9 @@ public class ControleurLettres implements EventHandler<ActionEvent> {
 
 
 
-            Button bouton = (Button) actionEvent.getSource();
-            this.modelePendu.essaiLettre(bouton.getText().toCharArray()[0]);
-            bouton.setDisable(true);
-            this.vuePendu.majAffichage();
+        Button bouton = (Button) actionEvent.getTarget();
+        String letter = bouton.getText();
+        modelePendu.essaiLettre(letter.charAt(0));
+        vuePendu.majAffichage();
     }
 }
